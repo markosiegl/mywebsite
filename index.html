@@ -3,40 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marko Siegl's Kanal</title>
+    <title>Über Marko Siegl</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: #ffffff;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
             text-align: center;
-            padding: 50px;
+            background-color: #f3f3f3;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            color: #4CAF50;
+            color: #800080;
         }
 
         p {
-            font-size: 20px;
+            font-size: 1.2rem;
+            line-height: 1.6;
         }
 
         a {
-            color: #ff0000;
+            color: #61dafb;
             text-decoration: none;
             font-weight: bold;
-            font-size: 22px;
         }
 
         a:hover {
             text-decoration: underline;
         }
+
+        .button {
+            background-color: #800080;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #6a006a;
+        }
+
+        .profile-image {
+            width: 108px;
+            height: 108px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            margin-top: 30px;
+        }
+
+        .video-container img {
+            width: 320px;
+            height: auto;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #800080;
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <img src="https://yt3.ggpht.com/yti/ANjgQV9ju3Oqvj39-UGmUZdRHXPEmVFoheVge3eXwFAjuMo3zh8=s108-c-k-c0x00ffffff-no-rj" alt="Profilbild von Marko Siegl" class="profile-image">
+        <h1>Willkommen auf meiner Webseite!</h1>
+        <p>
+            Mein Name ist Marko Siegl und ich bin ein leidenschaftlicher YouTuber mit <strong>111 Abonnenten</strong>.
+            Auf meinem Kanal findet ihr spannenden <strong>Gaming-Content</strong> und mehr! 
+        </p>
+        <p>
+            Klick auf das Wort <a href="https://www.youtube.com/@MarkoSiegl" target="_blank">Kanal</a>, um meinen YouTube-Kanal zu besuchen und Teil der Community zu werden.
+        </p>
+        <button class="button" onclick="visitChannel()">Zum Kanal</button>
 
-    <h1>Willkommen auf meiner Webseite!</h1>
-    <p>Besuche meinen YouTube-<a href="https://youtube.com/@MarkoSiegl" target="_blank" rel="noopener noreferrer">Kanal</a> und abonniere für mehr spannende Inhalte!</p>
+        <div class="video-container">
+            <h2 class="section-title">Meine neuesten Videos</h2>
+            <img src="https://i9.ytimg.com/vi/iA-ArDMCWmY/mqdefault.jpg?v=676c2ec3&sqp=CMCU7LsG&rs=AOn4CLD2srg31pS5hLG9vNfNFkVFL0XhDQ" alt="Video 1" onclick="playVideo('https://www.youtube.com/watch?v=iA-ArDMCWmY')">
+            <img src="https://i9.ytimg.com/vi/vtmbBjXlVdQ/mqdefault.jpg?v=66898eda&sqp=CMCU7LsG&rs=AOn4CLAI4pH5U6bdEhWvC--gzDIfD-jcKA" alt="Video 2" onclick="playVideo('https://www.youtube.com/watch?v=vtmbBjXlVdQ')">
+        </div>
+    </div>
 
+    <script>
+        function visitChannel() {
+            window.open('https://www.youtube.com/@MarkoSiegl', '_blank');
+        }
+
+        function playVideo(url) {
+            window.open(url, '_blank');
+        }
+    </script>
 </body>
 </html>
