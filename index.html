@@ -157,7 +157,7 @@
         <img src="https://yt3.ggpht.com/yti/ANjgQV9ju3Oqvj39-UGmUZdRHXPEmVFoheVge3eXwFAjuMo3zh8=s108-c-k-c0x00ffffff-no-rj" alt="Profilbild von Marko Siegl" class="profile-image">
         <h1>Willkommen auf meiner Webseite!</h1>
         <p>
-            Mein Name ist Marko Siegl und ich bin ein leidenschaftlicher YouTuber mit <strong>111 Abonnenten</strong>.
+            Mein Name ist Marko Siegl und ich bin ein leidenschaftlicher YouTuber mit <strong id="subscriber-count">111</strong> Abonnenten.
             Auf meinem Kanal findet ihr spannenden <strong>Gaming-Content</strong> und mehr! 
         </p>
         <p>
@@ -173,6 +173,20 @@
     </div>
 
     <script>
+        const YOUTUBE_API_KEY = 'AIzaSyALzFhEFS6H3LAhH2QGJ6dJ416cnxEDzzw'; // Replace with your API key
+        const CHANNEL_ID = 'UCbkas9iM-0U9JQ-ag4J4jTg';
+
+        async function fetchSubscriberCount() {
+            try {
+                const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${YOUTUBE_API_KEY}`);
+                const data = await response.json();
+                const subscriberCount = data.items[0].statistics.subscriberCount;
+                document.getElementById('subscriber-count').textContent = subscriberCount;
+            } catch (error) {
+                console.error('Fehler beim Abrufen der Abonnentenzahl:', error);
+            }
+        }
+
         function visitChannel() {
             window.open('https://www.youtube.com/@MarkoSiegl', '_blank');
         }
@@ -192,6 +206,9 @@
                 hamburger.classList.add('open');
             }
         }
+
+        // Fetch subscriber count on page load
+        fetchSubscriberCount();
     </script>
 </body>
 </html>
