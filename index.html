@@ -11,18 +11,17 @@
             color: #000;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
 
         .container {
             text-align: center;
             background-color: #f3f3f3;
-            padding: 20px;
+            padding: 40px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 100px auto;
+            width: 80%;
+            max-width: 800px;
         }
 
         h1 {
@@ -88,9 +87,72 @@
             margin-top: 20px;
             color: #800080;
         }
+
+        .hamburger-menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .hamburger-menu div {
+            width: 100%;
+            height: 5px;
+            background-color: #800080;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+
+        .hamburger-menu.open div {
+            background-color: #ffffff;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #800080;
+            color: white;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            transition: left 0.3s;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+        }
+
+        .sidebar a:hover {
+            background-color: #6a006a;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
     </style>
 </head>
 <body>
+    <div class="hamburger-menu" id="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <a href="https://www.youtube.com/@MarkoSiegl/videos" target="_blank">Videos</a>
+        <a href="https://socialblade.com/youtube/channel/UCbkas9iM-0U9JQ-ag4J4jTg/realtime" target="_blank">Live Abonnenten</a>
+        <a href="https://www.youtube.com/@MarkoSiegl/add?sub_confirmation=1" target="_blank">Abonnieren</a>
+    </div>
+
     <div class="container">
         <img src="https://yt3.ggpht.com/yti/ANjgQV9ju3Oqvj39-UGmUZdRHXPEmVFoheVge3eXwFAjuMo3zh8=s108-c-k-c0x00ffffff-no-rj" alt="Profilbild von Marko Siegl" class="profile-image">
         <h1>Willkommen auf meiner Webseite!</h1>
@@ -103,7 +165,7 @@
         </p>
         <button class="button" onclick="visitChannel()">Zum Kanal</button>
 
-        <div class="video-container">
+        <div class="video-container" id="videos">
             <h2 class="section-title">Meine neuesten Videos</h2>
             <img src="https://github.com/markosiegl/mywebsite/blob/website/PS5%20Unboxing.jpg?raw=true" alt="Video 1" onclick="playVideo('https://www.youtube.com/watch?v=iA-ArDMCWmY')">
             <img src="https://github.com/markosiegl/mywebsite/blob/website/Fireworks%20Mania.jpg?raw=true" alt="Video 2" onclick="playVideo('https://www.youtube.com/watch?v=vtmbBjXlVdQ')">
@@ -117,6 +179,18 @@
 
         function playVideo(url) {
             window.open(url, '_blank');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const hamburger = document.getElementById('hamburger');
+            if (sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                hamburger.classList.remove('open');
+            } else {
+                sidebar.classList.add('open');
+                hamburger.classList.add('open');
+            }
         }
     </script>
 </body>
