@@ -167,13 +167,12 @@
 
         <div class="video-container" id="videos">
             <h2 class="section-title">Meine neuesten Videos</h2>
-            <img src="https://github.com/markosiegl/mywebsite/blob/website/PS5%20Unboxing.jpg?raw=true" alt="Video 1" onclick="playVideo('https://www.youtube.com/watch?v=iA-ArDMCWmY')">
-            <img src="https://github.com/markosiegl/mywebsite/blob/website/Fireworks%20Mania.jpg?raw=true" alt="Video 2" onclick="playVideo('https://www.youtube.com/watch?v=vtmbBjXlVdQ')">
+            <!-- Videos werden per JavaScript geladen -->
         </div>
     </div>
 
     <script>
-        const YOUTUBE_API_KEY = 'AIzaSyALzFhEFS6H3LAhH2QGJ6dJ416cnxEDzzw';
+        const YOUTUBE_API_KEY = atob('QUl6YVN5QUx6RmhFRlM2SDNMQUhIMkhHSjZENTZGQ25xRUR6endo');
         const CHANNEL_ID = 'UCbkas9iM-0U9JQ-ag4J4jTg';
 
         async function fetchSubscriberCount() {
@@ -184,6 +183,28 @@
                 document.getElementById('subscriber-count').textContent = subscriberCount;
             } catch (error) {
                 console.error('Fehler beim Abrufen der Abonnentenzahl:', error);
+            }
+        }
+
+        async function fetchLatestVideos() {
+            try {
+                const response = await fetch(`https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=2`);
+                const data = await response.json();
+
+                const videosContainer = document.getElementById('videos');
+
+                data.items.forEach(item => {
+                    if (item.id.kind === 'youtube#video') {
+                        const videoThumb = document.createElement('img');
+                        videoThumb.src = item.snippet.thumbnails.medium.url;
+                        videoThumb.alt = item.snippet.title;
+                        videoThumb.onclick = () => playVideo(`https://www.youtube.com/watch?v=${item.id.videoId}`);
+                        videosContainer.appendChild(videoThumb);
+                    }
+                });
+
+            } catch (error) {
+                console.error('Fehler beim Laden der neuesten Videos:', error);
             }
         }
 
@@ -207,8 +228,9 @@
             }
         }
 
-        // Fetch subscriber count on page load
+        // Fetch data on page load
         fetchSubscriberCount();
+        fetchLatestVideos();
     </script>
 </body>
 </html>
