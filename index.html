@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marko's Webseite</title>
+    <link rel="icon" type="image/png" href="https://yt3.googleusercontent.com/ytc/AIdro_m4mjGNCfXT8O3fwaMlxcs67jCQK-OybVex4RRXs4DpgfY=s160-c-k-c0x00ffffff-no-rj">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        nav {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            margin: 50px 0 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        p {
+            text-align: center;
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .youtube-overlay {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 16px;
+            font-family: 'Roboto', Arial, sans-serif;
+            z-index: 1000;
+            width: 280px;
+            backdrop-filter: blur(10px);
+        }
+        .channel-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .channel-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+        .channel-details h3 {
+            margin: 0;
+            font-size: 16px;
+            color: white;
+        }
+        .channel-details p {
+            margin: 2px 0 0 0;
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+        }
+        .subscribe-btn {
+            background: #ff0000;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+        }
+        .subscribe-btn:hover {
+            background: #cc0000;
+        }
+        .youtube-overlay {
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .videos-section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        .videos-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: white;
+        }
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .video-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .video-thumbnail {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .video-info {
+            padding: 15px;
+        }
+        .video-title {
+            font-size: 1.1em;
+            margin: 0 0 8px 0;
+            color: white;
+        }
+        .video-date {
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+        }
+        .loading {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a> | <a href="info.html">Info</a> | <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="youtube-overlay">
+        <div class="channel-info">
+            <img class="channel-avatar" src="https://yt3.googleusercontent.com/ytc/AIdro_m4mjGNCfXT8O3fwaMlxcs67jCQK-OybVex4RRXs4DpgfY=s160-c-k-c0x00ffffff-no-rj" alt="Marko Siegl">
+            <div class="channel-details">
+                <h3>Marko Siegl</h3>
+                <p><span id="subscriber-count">Loading...</span> subscribers</p>
+            </div>
+        </div>
+        <button class="subscribe-btn" onclick="window.open('https://youtube.com/@MarkoSiegl/?sub_confirmation=1', '_blank')">Abonnieren</button>
+    </div>
+    
+    <h1>Willkommen zu meiner Webseite</h1>
+    <p>Hier findest du viele Informationen über Marko Siegl</p>
+    
+    <div class="videos-section">
+        <h2 class="videos-title">Neueste Videos</h2>
+        <div class="videos-grid" id="videosGrid">
+            <div class="loading">Videos werden geladen...</div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyDeOvX61KiKDbx8lkkJZjNA7_VRSM6D41Y';
+        const CHANNEL_ID = 'UCbkas9iM-0U9JQ-ag4J4jTg';
+        
+        async function loadVideos() {
+            try {
+                const [mediumResponse, longResponse] = await Promise.all([
+                    fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=10&type=video&videoDuration=medium`),
+                    fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=10&type=video&videoDuration=long`)
+                ]);
+                
+                const mediumData = await mediumResponse.json();
+                const longData = await longResponse.json();
+                
+                if (mediumData.error || longData.error) {
+                    throw new Error('API Error');
+                }
+                
+                const allVideos = [...mediumData.items, ...longData.items]
+                    .sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt))
+                    .slice(0, 6);
+                
+                const videosGrid = document.getElementById('videosGrid');
+                videosGrid.innerHTML = '';
+                
+                allVideos.forEach(video => {
+                    const videoCard = document.createElement('div');
+                    videoCard.className = 'video-card';
+                    videoCard.onclick = () => window.open(`https://youtube.com/watch?v=${video.id.videoId}`, '_blank');
+                    
+                    const publishDate = new Date(video.snippet.publishedAt);
+                    const timeAgo = getTimeAgo(publishDate);
+                    
+                    videoCard.innerHTML = `
+                        <img class="video-thumbnail" src="${video.snippet.thumbnails.high.url}" alt="${video.snippet.title}">
+                        <div class="video-info">
+                            <h3 class="video-title">${video.snippet.title}</h3>
+                            <p class="video-date">${timeAgo}</p>
+                        </div>
+                    `;
+                    
+                    videosGrid.appendChild(videoCard);
+                });
+            } catch (error) {
+                document.getElementById('videosGrid').innerHTML = '<div class="loading">Fehler beim Laden der Videos</div>';
+            }
+        }
+        
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return 'vor 1 Tag';
+            if (diffDays < 7) return `vor ${diffDays} Tagen`;
+            if (diffDays < 14) return 'vor 1 Woche';
+            if (diffDays < 30) return `vor ${Math.floor(diffDays / 7)} Wochen`;
+            if (diffDays < 60) return 'vor 1 Monat';
+            return `vor ${Math.floor(diffDays / 30)} Monaten`;
+        }
+        
+        async function updateSubscriberCount() {
+            try {
+                const response = await fetch('https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle=MarkoSiegl&key=AIzaSyDeOvX61KiKDbx8lkkJZjNA7_VRSM6D41Y');
+                const data = await response.json();
+                const count = data.items[0].statistics.subscriberCount;
+                document.getElementById('subscriber-count').textContent = new Intl.NumberFormat('de-DE').format(count);
+            } catch (error) {
+                console.log('Error:', error);
+                document.getElementById('subscriber-count').textContent = '1.2K';
+            }
+        }
+        
+        loadVideos();
+        updateSubscriberCount();
+    </script>
+
+</body>
+</html>
