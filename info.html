@@ -70,7 +70,21 @@
             }
         }
         
+        function calculateAge() {
+            const birthDate = new Date(2011, 11, 6); // December 6, 2011 (month is 0-indexed)
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            document.getElementById('age').textContent = age;
+        }
+        
         window.onload = function() {
+            calculateAge();
             updateSubscriberCount();
             setInterval(updateSubscriberCount, 300000); // Update every 5 minutes
         };
@@ -87,7 +101,7 @@
         </div>
         
         <h2>YouTube</h2>
-        <p>Ich bin ein 14 jähriger YouTuber mit <span id="subscriber-count">Loading...</span> Abonnenten und mache meistens Gaming Videos und manchmal Vlogs</p>
+        <p>Ich bin ein <span id="age">Loading...</span> jähriger YouTuber mit <span id="subscriber-count">Loading...</span> Abonnenten und mache meistens Gaming Videos und manchmal Vlogs</p>
      
         <h2>Leben</h2>
         <p>Ich wurde am 06.12.2011 geboren und fange meine Karriere sehr früh an</p>
