@@ -206,50 +206,50 @@
     </div>
 
     <script>
-        const API_KEY = 'AIzaSyDeOvX61KiKDbx8lkkJZjNA7_VRSM6D41Y';
-        const CHANNEL_ID = 'UCbkas9iM-0U9JQ-ag4J4jTg';
-        
-        async function loadVideos() {
+        async function loadSiteData() {
             try {
-                const [mediumResponse, longResponse] = await Promise.all([
-                    fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=10&type=video&videoDuration=medium`),
-                    fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=10&type=video&videoDuration=long`)
-                ]);
-                
-                const mediumData = await mediumResponse.json();
-                const longData = await longResponse.json();
-                
-                if (mediumData.error || longData.error) {
-                    throw new Error('API Error');
-                }
-                
-                const allVideos = [...mediumData.items, ...longData.items]
-                    .sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt))
-                    .slice(0, 6);
-                
-                const videosGrid = document.getElementById('videosGrid');
-                videosGrid.innerHTML = '';
-                
-                allVideos.forEach(video => {
-                    const videoCard = document.createElement('div');
-                    videoCard.className = 'video-card';
-                    videoCard.onclick = () => window.open(`https://youtube.com/watch?v=${video.id.videoId}`, '_blank');
-                    
-                    const publishDate = new Date(video.snippet.publishedAt);
-                    const timeAgo = getTimeAgo(publishDate);
-                    
-                    videoCard.innerHTML = `
-                        <img class="video-thumbnail" src="${video.snippet.thumbnails.high.url}" alt="${video.snippet.title}">
-                        <div class="video-info">
-                            <h3 class="video-title">${video.snippet.title}</h3>
-                            <p class="video-date">${timeAgo}</p>
-                        </div>
-                    `;
-                    
-                    videosGrid.appendChild(videoCard);
-                });
+                const response = await fetch('/data/videos.json', { cache: 'no-store' });
+                const data = await response.json();
+
+                renderVideos(data.videos || []);
+                renderSubscriberCount(data.subscriberCount);
             } catch (error) {
+                console.log('Error:', error);
                 document.getElementById('videosGrid').innerHTML = '<div class="loading">Fehler beim Laden der Videos</div>';
+                document.getElementById('subscriber-count').textContent = '1.2K';
+            }
+        }
+
+        function renderVideos(videos) {
+            const videosGrid = document.getElementById('videosGrid');
+            videosGrid.innerHTML = '';
+
+            videos.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.onclick = () => window.open(`https://youtube.com/watch?v=${video.videoId}`, '_blank');
+
+                const publishDate = new Date(video.publishedAt);
+                const timeAgo = getTimeAgo(publishDate);
+
+                videoCard.innerHTML = `
+                    <img class="video-thumbnail" src="${video.thumbnail}" alt="${video.title}">
+                    <div class="video-info">
+                        <h3 class="video-title">${video.title}</h3>
+                        <p class="video-date">${timeAgo}</p>
+                    </div>
+                `;
+
+                videosGrid.appendChild(videoCard);
+            });
+        }
+
+        function renderSubscriberCount(count) {
+            const el = document.getElementById('subscriber-count');
+            if (count) {
+                el.textContent = new Intl.NumberFormat('de-DE').format(count);
+            } else {
+                el.textContent = '1.2K';
             }
         }
         
@@ -266,20 +266,7 @@
             return `vor ${Math.floor(diffDays / 30)} Monaten`;
         }
         
-        async function updateSubscriberCount() {
-            try {
-                const response = await fetch('https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle=MarkoSiegl&key=AIzaSyDeOvX61KiKDbx8lkkJZjNA7_VRSM6D41Y');
-                const data = await response.json();
-                const count = data.items[0].statistics.subscriberCount;
-                document.getElementById('subscriber-count').textContent = new Intl.NumberFormat('de-DE').format(count);
-            } catch (error) {
-                console.log('Error:', error);
-                document.getElementById('subscriber-count').textContent = '1.2K';
-            }
-        }
-        
-        loadVideos();
-        updateSubscriberCount();
+        loadSiteData();
     </script>
 
 </body>
