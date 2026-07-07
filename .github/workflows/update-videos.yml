@@ -19,9 +19,27 @@ jobs:
           curl -s "https://www.googleapis.com/youtube/v3/search?key=$YT_API_KEY&channelId=UCbkas9iM-0U9JQ-ag4J4jTg&part=snippet&order=date&maxResults=10&type=video&videoDuration=long" \
           > data/videos.json
 
-      - name: Commit updated data
+      - name: Commit updated data on main
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add data/videos.json
           git diff --staged --quiet || (git commit -m "Update videos.json" && git push)
+
+      - name: Checkout website branch
+        run: |
+          git fetch origin website
+          git worktree add ../website-branch origin/website
+
+      - name: Copy videos.json into website branch
+        run: |
+          mkdir -p ../website-branch/data
+          cp data/videos.json ../website-branch/data/videos.json
+
+      - name: Commit and push to website branch
+        run: |
+          cd ../website-branch
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/videos.json
+          git diff --staged --quiet || (git commit -m "Update videos.json" && git push origin HEAD:website)
