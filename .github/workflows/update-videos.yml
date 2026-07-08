@@ -1,23 +1,49 @@
 name: Update YouTube Videos
-
 on:
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch: {}
-
 jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch latest videos
+      - name: Fetch latest videos and subscriber count
         env:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
         run: |
-          mkdir -p data
-          curl -s "https://www.googleapis.com/youtube/v3/search?key=$YT_API_KEY&channelId=UCbkas9iM-0U9JQ-ag4J4jTg&part=snippet&order=date&maxResults=10&type=video&videoDuration=long" \
-          > data/videos.json
+          mkdir -p data raw
+          curl -s "https://www.googleapis.com/youtube/v3/search?key=$YT_API_KEY&channelId=UCbkas9iM-0U9JQ-ag4J4jTg&part=snippet&order=date&maxResults=10&type=video&videoDuration=medium" -o raw/medium.json
+          curl -s "https://www.googleapis.com/youtube/v3/search?key=$YT_API_KEY&channelId=UCbkas9iM-0U9JQ-ag4J4jTg&part=snippet&order=date&maxResults=10&type=video&videoDuration=long" -o raw/long.json
+          curl -s "https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle=MarkoSiegl&key=$YT_API_KEY" -o raw/stats.json
+
+      - name: Merge into data/videos.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const medium = JSON.parse(fs.readFileSync('raw/medium.json', 'utf8'));
+            const long = JSON.parse(fs.readFileSync('raw/long.json', 'utf8'));
+            const stats = JSON.parse(fs.readFileSync('raw/stats.json', 'utf8'));
+
+            const videos = [...(medium.items || []), ...(long.items || [])]
+              .sort((a, b) => new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt))
+              .slice(0, 6)
+              .map(v => ({
+                videoId: v.id.videoId,
+                title: v.snippet.title,
+                publishedAt: v.snippet.publishedAt,
+                thumbnail: v.snippet.thumbnails.high.url
+              }));
+
+            const subscriberCount = stats.items && stats.items[0]
+              ? stats.items[0].statistics.subscriberCount
+              : null;
+
+            const output = { videos, subscriberCount, updatedAt: new Date().toISOString() };
+            fs.writeFileSync('data/videos.json', JSON.stringify(output, null, 2));
+            console.log(JSON.stringify(output, null, 2));
+          "
 
       - name: Commit updated data on main
         run: |
