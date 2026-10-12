@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specs - Marko's Webseite</title>
+    <link rel="icon" type="image/png" href="https://yt3.googleusercontent.com/ytc/AIdro_m4mjGNCfXT8O3fwaMlxcs67jCQK-OybVex4RRXs4DpgfY=s160-c-k-c0x00ffffff-no-rj">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        nav {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            margin: 50px 0 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+        .spec-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 16px 25px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+        .spec-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+        }
+        .spec-img {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.08);
+            padding: 4px;
+            flex-shrink: 0;
+        }
+        .spec-label {
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 3px;
+        }
+        .spec-value {
+            font-size: 1.05em;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin: 35px 0 15px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 8px;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; margin: 30px 0 20px 0; }
+            nav a { margin: 0 5px; padding: 6px 12px; font-size: 14px; }
+            .spec-value { font-size: 0.95em; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> | <a href="/info">Info</a> | <a href="/kontakt">Kontakt</a> | <a href="/links">Links</a> | <a href="/specs">Specs</a>
+    </nav>
+
+    <h1>Mein PC Setup</h1>
+
+    <div class="content">
+
+        <p class="section-title">CPU</p>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2613900-ryzen-9-9950x.jpg" onerror="this.src='https://www.amd.com/content/dam/amd/en/images/products/processors/ryzen/2523651-amd-ryzen-9-9900x-pib-left-facing-1260x709.png'" alt="AMD Ryzen 9 9900X">
+                <div>
+                    <div class="spec-label">Prozessor</div>
+                    <div class="spec-value">AMD Ryzen 9 9900X</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="section-title">GPU</p>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://storage-asset.msi.com/global/picture/image/feature/vga/NVIDIA/GB203-400-Gaming-trio/images/kv_vga-1.png" onerror="this.src='https://www.msi.com/asset/resize/image/global/product/product_17391723455f4b2e5e4e4e4e4e4e4e4e.png62405b38c58fe0f07fcef2367d8a9ba1/600.png'" alt="MSI RTX 5080">
+                <div>
+                    <div class="spec-label">Grafikkarte</div>
+                    <div class="spec-value">MSI GeForce RTX 5080</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="section-title">RAM</p>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://m.media-amazon.com/images/I/71O+5BneBVL._AC_UF1000,1000_QL80_.jpg" alt="Corsair Dominator 32GB">
+                <div>
+                    <div class="spec-label">Arbeitsspeicher</div>
+                    <div class="spec-value">Corsair Dominator Platinum 32GB DDR5</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="section-title">Storage</p>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://gzhls.at/pix/79/ba/79baad02092654b8-l.webp" alt="WD Black SN850X 2TB">
+                <div>
+                    <div class="spec-label">SSD 1</div>
+                    <div class="spec-value">WD Black SN850X 2TB NVMe SSD</div>
+                </div>
+            </div>
+        </div>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://webapi3.adata.com/storage/product/legend_710_p_01.jpg" alt="ADATA Legend 910 1TB">
+                <div>
+                    <div class="spec-label">SSD 2</div>
+                    <div class="spec-value">ADATA Legend 710 1TB NVMe SSD</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="section-title">Monitore</p>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://images.samsung.com/is/image/samsung/ch-uhd-ur55-lu28r550uquxen-frontblack-thumb-187651670" alt="Samsung 4K Monitor">
+                <div>
+                    <div class="spec-label">Monitor 1</div>
+                    <div class="spec-value">Samsung LU288R5  Monitor</div>
+                </div>
+            </div>
+        </div>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://i5.walmartimages.com/seo/Dell-Plus-S2725DS-27-Class-WQHD-LED-Monitor-16-9_f922b836-60d9-4f6c-bd89-86d9e1d62cdb.5f1035572a3d2e40b43be27d7a54d972.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF" alt="Dell 1440p 100Hz">
+                <div>
+                    <div class="spec-label">Monitor 2</div>
+                    <div class="spec-value">Dell S2725DS Monitor</div>
+                </div>
+            </div>
+        </div>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://image.benq.com/is/image/benqco/gl2480-right45-3?$ResponsivePreset$" alt="BenQ 1080p 75Hz">
+                <div>
+                    <div class="spec-label">Monitor 3</div>
+                    <div class="spec-value">BenQ GL2480 Monitor</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="section-title">Peripherie</p>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://resource.logitechg.com/c_fill,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/g305/2025-update/g305-lightspeed-mouse-top-angle-black-gallery-1.png" alt="Logitech G305">
+                <div>
+                    <div class="spec-label">Maus</div>
+                    <div class="spec-value">Logitech G305 Lightspeed</div>
+                </div>
+            </div>
+        </div>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://m.media-amazon.com/images/I/61zgqaSjEgL._AC_UF1000,1000_QL80_.jpg" alt="Logitech G915 TKL">
+                <div>
+                    <div class="spec-label">Tastatur</div>
+                    <div class="spec-value">Logitech G915 TKL Lightspeed</div>
+                </div>
+            </div>
+        </div>
+        <div class="spec-card">
+            <div class="spec-left">
+                <img class="spec-img" src="https://m.media-amazon.com/images/I/71RSZdY7pJL.jpg" alt="Logitech G733">
+                <div>
+                    <div class="spec-label">Headset</div>
+                    <div class="spec-value">Logitech G733 Lightspeed</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
