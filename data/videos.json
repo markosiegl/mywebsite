@@ -1,42 +1,99 @@
 {
-  "videos": [
+  "kind": "youtube#searchListResponse",
+  "etag": "9hQ6N4l3OcIqvvA77FQ3cVpWztk",
+  "regionCode": "US",
+  "pageInfo": {
+    "totalResults": 2,
+    "resultsPerPage": 2
+  },
+  "items": [
     {
-      "videoId": "zOZumlR7b3o",
-      "title": "FNAF 4 aber ich SCHREIE wie ein STAUBSAUGER",
-      "publishedAt": "2026-03-04T14:14:31Z",
-      "thumbnail": "https://i.ytimg.com/vi/zOZumlR7b3o/hqdefault.jpg"
+      "kind": "youtube#searchResult",
+      "etag": "99nYstMN3pJSD-ISyGJKm6mQEyE",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "UWXn6HxH8ZY"
+      },
+      "snippet": {
+        "publishedAt": "2026-01-06T17:29:39Z",
+        "channelId": "UCbkas9iM-0U9JQ-ag4J4jTg",
+        "title": "ES IST SO VIEL PASSIERT! | Gruseliges Modpack #1",
+        "description": "Heute machen wir etwas neues, Ich habe ein gruseliges Modpack gefunden und wir spielen es! Modpack: ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/UWXn6HxH8ZY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/UWXn6HxH8ZY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/UWXn6HxH8ZY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/UWXn6HxH8ZY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/UWXn6HxH8ZY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Marko Siegl",
+        "liveBroadcastContent": "none",
+        "publishTime": "2026-01-06T17:29:39Z"
+      }
     },
     {
-      "videoId": "UWXn6HxH8ZY",
-      "title": "ES IST SO VIEL PASSIERT! | Gruseliges Modpack #1",
-      "publishedAt": "2026-01-06T17:29:39Z",
-      "thumbnail": "https://i.ytimg.com/vi/UWXn6HxH8ZY/hqdefault.jpg"
-    },
-    {
-      "videoId": "PF0IP7AUExs",
-      "title": "Wir wurden noch NIE so ERSCHRECKT! | The Broken Script #4",
-      "publishedAt": "2025-11-16T09:08:11Z",
-      "thumbnail": "https://i.ytimg.com/vi/PF0IP7AUExs/hqdefault.jpg"
-    },
-    {
-      "videoId": "KA1Sk8fD2aU",
-      "title": "Ich habe Albträume von dieser Mod bekommen! | The Broken Script #3",
-      "publishedAt": "2025-11-08T15:02:27Z",
-      "thumbnail": "https://i.ytimg.com/vi/KA1Sk8fD2aU/hqdefault.jpg"
-    },
-    {
-      "videoId": "P_2fiOAnR4s",
-      "title": "Das Spiel hat UNS gebrochen | The Broken Script #2",
-      "publishedAt": "2025-10-26T17:41:09Z",
-      "thumbnail": "https://i.ytimg.com/vi/P_2fiOAnR4s/hqdefault.jpg"
-    },
-    {
-      "videoId": "ZaZcsnSX6xM",
-      "title": "Diese Mod hat mein Freund ZERSTÖRT | The Broken Script #1",
-      "publishedAt": "2025-10-11T12:08:13Z",
-      "thumbnail": "https://i.ytimg.com/vi/ZaZcsnSX6xM/hqdefault.jpg"
+      "kind": "youtube#searchResult",
+      "etag": "MoLnGnEU6kt_PPD4ME1RwXlF0lM",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "ZaZcsnSX6xM"
+      },
+      "snippet": {
+        "publishedAt": "2025-10-11T12:08:13Z",
+        "channelId": "UCbkas9iM-0U9JQ-ag4J4jTg",
+        "title": "Diese Mod hat mein Freund ZERSTÖRT | The Broken Script #1",
+        "description": "Ich spiele heute mit meinem Freund Benjamin Minecraft, aber mit ein TWIST! Wir haben die \"The Broken Script\" Mod installiert ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ZaZcsnSX6xM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ZaZcsnSX6xM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ZaZcsnSX6xM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ZaZcsnSX6xM/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ZaZcsnSX6xM/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Marko Siegl",
+        "liveBroadcastContent": "none",
+        "publishTime": "2025-10-11T12:08:13Z"
+      }
     }
-  ],
-  "subscriberCount": "118",
-  "updatedAt": "2026-11-07T12:39:48.027Z"
+  ]
 }
