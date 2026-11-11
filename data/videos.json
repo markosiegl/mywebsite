@@ -1,99 +1,18 @@
 {
-  "kind": "youtube#searchListResponse",
-  "etag": "9hQ6N4l3OcIqvvA77FQ3cVpWztk",
-  "regionCode": "US",
-  "pageInfo": {
-    "totalResults": 2,
-    "resultsPerPage": 2
-  },
-  "items": [
+  "subscriberCount": 118,
+  "updatedAt": "2026-11-11T12:46:57Z",
+  "videos": [
     {
-      "kind": "youtube#searchResult",
-      "etag": "99nYstMN3pJSD-ISyGJKm6mQEyE",
-      "id": {
-        "kind": "youtube#video",
-        "videoId": "UWXn6HxH8ZY"
-      },
-      "snippet": {
-        "publishedAt": "2026-01-06T17:29:39Z",
-        "channelId": "UCbkas9iM-0U9JQ-ag4J4jTg",
-        "title": "ES IST SO VIEL PASSIERT! | Gruseliges Modpack #1",
-        "description": "Heute machen wir etwas neues, Ich habe ein gruseliges Modpack gefunden und wir spielen es! Modpack: ...",
-        "thumbnails": {
-          "default": {
-            "url": "https://i.ytimg.com/vi/UWXn6HxH8ZY/default.jpg",
-            "width": 120,
-            "height": 90
-          },
-          "medium": {
-            "url": "https://i.ytimg.com/vi/UWXn6HxH8ZY/mqdefault.jpg",
-            "width": 320,
-            "height": 180
-          },
-          "high": {
-            "url": "https://i.ytimg.com/vi/UWXn6HxH8ZY/hqdefault.jpg",
-            "width": 480,
-            "height": 360
-          },
-          "standard": {
-            "url": "https://i.ytimg.com/vi/UWXn6HxH8ZY/sddefault.jpg",
-            "width": 640,
-            "height": 480
-          },
-          "maxres": {
-            "url": "https://i.ytimg.com/vi/UWXn6HxH8ZY/maxresdefault.jpg",
-            "width": 1280,
-            "height": 720
-          }
-        },
-        "channelTitle": "Marko Siegl",
-        "liveBroadcastContent": "none",
-        "publishTime": "2026-01-06T17:29:39Z"
-      }
+      "videoId": "UWXn6HxH8ZY",
+      "title": "ES IST SO VIEL PASSIERT! | Gruseliges Modpack #1",
+      "thumbnail": "https://i.ytimg.com/vi/UWXn6HxH8ZY/hqdefault.jpg",
+      "publishedAt": "2026-01-06T17:29:39Z"
     },
     {
-      "kind": "youtube#searchResult",
-      "etag": "MoLnGnEU6kt_PPD4ME1RwXlF0lM",
-      "id": {
-        "kind": "youtube#video",
-        "videoId": "ZaZcsnSX6xM"
-      },
-      "snippet": {
-        "publishedAt": "2025-10-11T12:08:13Z",
-        "channelId": "UCbkas9iM-0U9JQ-ag4J4jTg",
-        "title": "Diese Mod hat mein Freund ZERSTÖRT | The Broken Script #1",
-        "description": "Ich spiele heute mit meinem Freund Benjamin Minecraft, aber mit ein TWIST! Wir haben die \"The Broken Script\" Mod installiert ...",
-        "thumbnails": {
-          "default": {
-            "url": "https://i.ytimg.com/vi/ZaZcsnSX6xM/default.jpg",
-            "width": 120,
-            "height": 90
-          },
-          "medium": {
-            "url": "https://i.ytimg.com/vi/ZaZcsnSX6xM/mqdefault.jpg",
-            "width": 320,
-            "height": 180
-          },
-          "high": {
-            "url": "https://i.ytimg.com/vi/ZaZcsnSX6xM/hqdefault.jpg",
-            "width": 480,
-            "height": 360
-          },
-          "standard": {
-            "url": "https://i.ytimg.com/vi/ZaZcsnSX6xM/sddefault.jpg",
-            "width": 640,
-            "height": 480
-          },
-          "maxres": {
-            "url": "https://i.ytimg.com/vi/ZaZcsnSX6xM/maxresdefault.jpg",
-            "width": 1280,
-            "height": 720
-          }
-        },
-        "channelTitle": "Marko Siegl",
-        "liveBroadcastContent": "none",
-        "publishTime": "2025-10-11T12:08:13Z"
-      }
+      "videoId": "ZaZcsnSX6xM",
+      "title": "Diese Mod hat mein Freund ZERSTÖRT | The Broken Script #1",
+      "thumbnail": "https://i.ytimg.com/vi/ZaZcsnSX6xM/hqdefault.jpg",
+      "publishedAt": "2025-10-11T12:08:13Z"
     }
   ]
 }
