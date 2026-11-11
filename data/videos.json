@@ -1,19 +1,7 @@
 {
   "subscriberCount": 118,
-  "updatedAt": "2026-11-11T12:53:34Z",
+  "updatedAt": "2026-11-11T12:57:03Z",
   "videos": [
-    {
-      "videoId": "2eFVOe7Fdjs",
-      "title": "Aus der Schule (Tag 22)",
-      "thumbnail": "https://i.ytimg.com/vi/2eFVOe7Fdjs/hqdefault.jpg",
-      "publishedAt": "2026-07-10T07:31:34Z"
-    },
-    {
-      "videoId": "r_mUNvFFBtA",
-      "title": "Marko&Benjamin Teil 3",
-      "thumbnail": "https://i.ytimg.com/vi/r_mUNvFFBtA/hqdefault.jpg",
-      "publishedAt": "2026-06-18T10:27:47Z"
-    },
     {
       "videoId": "zOZumlR7b3o",
       "title": "FNAF 4 aber ich SCHREIE wie ein STAUBSAUGER",
@@ -25,12 +13,6 @@
       "title": "ES IST SO VIEL PASSIERT! | Gruseliges Modpack #1",
       "thumbnail": "https://i.ytimg.com/vi/UWXn6HxH8ZY/hqdefault.jpg",
       "publishedAt": "2026-01-06T17:29:39Z"
-    },
-    {
-      "videoId": "XaFmLgyYC44",
-      "title": "Das war nicht geplant…  #minecraft #thebrokenscript",
-      "thumbnail": "https://i.ytimg.com/vi/XaFmLgyYC44/hqdefault.jpg",
-      "publishedAt": "2025-11-16T09:12:30Z"
     },
     {
       "videoId": "PF0IP7AUExs",
@@ -45,12 +27,6 @@
       "publishedAt": "2025-11-08T15:02:27Z"
     },
     {
-      "videoId": "mueizyy2S6o",
-      "title": "WAS ZUM TEUFEL IST DAS??? | The Broken Script Minecraft  #minecraft",
-      "thumbnail": "https://i.ytimg.com/vi/mueizyy2S6o/hqdefault.jpg",
-      "publishedAt": "2025-10-27T11:14:39Z"
-    },
-    {
       "videoId": "P_2fiOAnR4s",
       "title": "Das Spiel hat UNS gebrochen | The Broken Script #2",
       "thumbnail": "https://i.ytimg.com/vi/P_2fiOAnR4s/hqdefault.jpg",
@@ -61,18 +37,6 @@
       "title": "Diese Mod hat mein Freund ZERSTÖRT | The Broken Script #1",
       "thumbnail": "https://i.ytimg.com/vi/ZaZcsnSX6xM/hqdefault.jpg",
       "publishedAt": "2025-10-11T12:08:13Z"
-    },
-    {
-      "videoId": "iA-ArDMCWmY",
-      "title": "Meine ERSTE NEUE SONY KONSOLE IN DEN LETZTEN 7 JAHREN | PS5 Unboxing",
-      "thumbnail": "https://i.ytimg.com/vi/iA-ArDMCWmY/hqdefault.jpg",
-      "publishedAt": "2024-12-26T13:30:05Z"
-    },
-    {
-      "videoId": "cgvy5yKqSa0",
-      "title": "Aus der Schule (Tag 21)",
-      "thumbnail": "https://i.ytimg.com/vi/cgvy5yKqSa0/hqdefault.jpg",
-      "publishedAt": "2024-02-02T12:14:31Z"
     }
   ]
 }
