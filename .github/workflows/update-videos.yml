@@ -5,19 +5,43 @@ on:
     - cron: '0 */6 * * *'
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        # Falls deine Seite vom Branch "website" ausgeliefert wird,
+        # die folgenden zwei Zeilen aktivieren (# entfernen):
+        # with:
+        #   ref: website
 
-      - name: Fetch latest videos
+      - name: Fetch videos and channel stats
         env:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
+          CHANNEL_ID: UCbkas9iM-0U9JQ-ag4J4jTg
         run: |
+          set -euo pipefail
           mkdir -p data
-          curl -s "https://www.googleapis.com/youtube/v3/search?key=$YT_API_KEY&channelId=UCbkas9iM-0U9JQ-ag4J4jTg&part=snippet&order=date&maxResults=10&type=video&videoDuration=long" \
-          > data/videos.json
+
+          curl -sf "https://www.googleapis.com/youtube/v3/search?key=$YT_API_KEY&channelId=$CHANNEL_ID&part=snippet&order=date&maxResults=10&type=video&videoDuration=long" -o search.json
+          curl -sf "https://www.googleapis.com/youtube/v3/channels?key=$YT_API_KEY&id=$CHANNEL_ID&part=statistics" -o channel.json
+
+          # In das Format umbauen, das index.html erwartet
+          jq -n --slurpfile s search.json --slurpfile c channel.json '{
+            subscriberCount: ($c[0].items[0].statistics.subscriberCount | if . then tonumber else null end),
+            updatedAt: (now | todate),
+            videos: [ $s[0].items[] | {
+              videoId: .id.videoId,
+              title: .snippet.title,
+              thumbnail: (.snippet.thumbnails.high.url // .snippet.thumbnails.medium.url),
+              publishedAt: .snippet.publishedAt
+            } ]
+          }' > data/videos.json
+
+          rm -f search.json channel.json
 
       - name: Commit updated data
         run: |
