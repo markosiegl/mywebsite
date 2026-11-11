@@ -22,26 +22,30 @@ jobs:
         env:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
           CHANNEL_ID: UCbkas9iM-0U9JQ-ag4J4jTg
+          UPLOADS_PLAYLIST: UUbkas9iM-0U9JQ-ag4J4jTg
         run: |
           set -euo pipefail
           mkdir -p data
 
-          curl -sf "https://www.googleapis.com/youtube/v3/search?key=$YT_API_KEY&channelId=$CHANNEL_ID&part=snippet&order=date&maxResults=10&type=video&videoDuration=long" -o search.json
+          # Uploads-Playlist = alle öffentlichen Uploads, neueste zuerst
+          curl -sf "https://www.googleapis.com/youtube/v3/playlistItems?key=$YT_API_KEY&playlistId=$UPLOADS_PLAYLIST&part=snippet,contentDetails&maxResults=12" -o playlist.json
           curl -sf "https://www.googleapis.com/youtube/v3/channels?key=$YT_API_KEY&id=$CHANNEL_ID&part=statistics" -o channel.json
 
-          # In das Format umbauen, das index.html erwartet
-          jq -n --slurpfile s search.json --slurpfile c channel.json '{
+          jq -n --slurpfile p playlist.json --slurpfile c channel.json '{
             subscriberCount: ($c[0].items[0].statistics.subscriberCount | if . then tonumber else null end),
             updatedAt: (now | todate),
-            videos: [ $s[0].items[] | {
-              videoId: .id.videoId,
-              title: .snippet.title,
-              thumbnail: (.snippet.thumbnails.high.url // .snippet.thumbnails.medium.url),
-              publishedAt: .snippet.publishedAt
-            } ]
+            videos: [ $p[0].items[]
+              | select(.snippet.title != "Private video" and .snippet.title != "Deleted video")
+              | select(.snippet.thumbnails.high.url or .snippet.thumbnails.medium.url)
+              | {
+                  videoId: .contentDetails.videoId,
+                  title: .snippet.title,
+                  thumbnail: (.snippet.thumbnails.high.url // .snippet.thumbnails.medium.url),
+                  publishedAt: (.contentDetails.videoPublishedAt // .snippet.publishedAt)
+                } ]
           }' > data/videos.json
 
-          rm -f search.json channel.json
+          rm -f playlist.json channel.json
 
       - name: Commit updated data
         run: |
