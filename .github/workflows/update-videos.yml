@@ -23,29 +23,51 @@ jobs:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
           CHANNEL_ID: UCbkas9iM-0U9JQ-ag4J4jTg
           UPLOADS_PLAYLIST: UUbkas9iM-0U9JQ-ag4J4jTg
+          MAX_VIDEOS: 6        # so viele Videos zeigt die Seite
+          MIN_SECONDS: 180     # alles bis 3 Min. gilt als Short und wird ausgeblendet
         run: |
           set -euo pipefail
           mkdir -p data
 
-          # Uploads-Playlist = alle öffentlichen Uploads, neueste zuerst
-          curl -sf "https://www.googleapis.com/youtube/v3/playlistItems?key=$YT_API_KEY&playlistId=$UPLOADS_PLAYLIST&part=snippet,contentDetails&maxResults=12" -o playlist.json
+          # 1) Die letzten 50 Uploads holen (neueste zuerst)
+          curl -sf "https://www.googleapis.com/youtube/v3/playlistItems?key=$YT_API_KEY&playlistId=$UPLOADS_PLAYLIST&part=snippet,contentDetails&maxResults=50" -o playlist.json
+
+          # 2) Laufzeiten dieser Videos holen, um Shorts auszusortieren
+          IDS=$(jq -r '[.items[].contentDetails.videoId] | join(",")' playlist.json)
+          curl -sf "https://www.googleapis.com/youtube/v3/videos?key=$YT_API_KEY&id=$IDS&part=contentDetails" -o durations.json
+
+          # 3) Kanalstatistik (Abonnenten)
           curl -sf "https://www.googleapis.com/youtube/v3/channels?key=$YT_API_KEY&id=$CHANNEL_ID&part=statistics" -o channel.json
 
-          jq -n --slurpfile p playlist.json --slurpfile c channel.json '{
-            subscriberCount: ($c[0].items[0].statistics.subscriberCount | if . then tonumber else null end),
-            updatedAt: (now | todate),
-            videos: [ $p[0].items[]
-              | select(.snippet.title != "Private video" and .snippet.title != "Deleted video")
-              | select(.snippet.thumbnails.high.url or .snippet.thumbnails.medium.url)
-              | {
-                  videoId: .contentDetails.videoId,
-                  title: .snippet.title,
-                  thumbnail: (.snippet.thumbnails.high.url // .snippet.thumbnails.medium.url),
-                  publishedAt: (.contentDetails.videoPublishedAt // .snippet.publishedAt)
-                } ]
-          }' > data/videos.json
+          # 4) Alles in das Format umbauen, das index.html erwartet
+          jq -n \
+            --slurpfile p playlist.json \
+            --slurpfile d durations.json \
+            --slurpfile c channel.json \
+            --argjson max "$MAX_VIDEOS" \
+            --argjson min "$MIN_SECONDS" '
+            def secs:
+              (try capture("^PT(?:(?<h>[0-9]+)H)?(?:(?<m>[0-9]+)M)?(?:(?<s>[0-9]+)S)?$") catch null) as $t
+              | if $t == null then 0
+                else (($t.h // "0" | tonumber) * 3600) + (($t.m // "0" | tonumber) * 60) + ($t.s // "0" | tonumber)
+                end;
+            ($d[0].items | map({key: .id, value: (.contentDetails.duration | secs)}) | from_entries) as $dur
+            | {
+                subscriberCount: ($c[0].items[0].statistics.subscriberCount | if . then tonumber else null end),
+                updatedAt: (now | todate),
+                videos: [ $p[0].items[]
+                  | select(.snippet.title != "Private video" and .snippet.title != "Deleted video")
+                  | select(.snippet.thumbnails.high.url or .snippet.thumbnails.medium.url)
+                  | select(($dur[.contentDetails.videoId] // 0) > $min)
+                  | {
+                      videoId: .contentDetails.videoId,
+                      title: .snippet.title,
+                      thumbnail: (.snippet.thumbnails.high.url // .snippet.thumbnails.medium.url),
+                      publishedAt: (.contentDetails.videoPublishedAt // .snippet.publishedAt)
+                    } ][:$max]
+              }' > data/videos.json
 
-          rm -f playlist.json channel.json
+          rm -f playlist.json durations.json channel.json
 
       - name: Commit updated data
         run: |
