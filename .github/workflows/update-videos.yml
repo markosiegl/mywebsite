@@ -32,9 +32,9 @@ jobs:
           # 1) Die letzten 50 Uploads holen (neueste zuerst)
           curl -sf "https://www.googleapis.com/youtube/v3/playlistItems?key=$YT_API_KEY&playlistId=$UPLOADS_PLAYLIST&part=snippet,contentDetails&maxResults=50" -o playlist.json
 
-          # 2) Laufzeiten dieser Videos holen, um Shorts auszusortieren
+          # 2) Laufzeiten (um Shorts auszusortieren) und Aufrufe dieser Videos holen
           IDS=$(jq -r '[.items[].contentDetails.videoId] | join(",")' playlist.json)
-          curl -sf "https://www.googleapis.com/youtube/v3/videos?key=$YT_API_KEY&id=$IDS&part=contentDetails" -o durations.json
+          curl -sf "https://www.googleapis.com/youtube/v3/videos?key=$YT_API_KEY&id=$IDS&part=contentDetails,statistics" -o durations.json
 
           # 3) Kanalstatistik (Abonnenten)
           curl -sf "https://www.googleapis.com/youtube/v3/channels?key=$YT_API_KEY&id=$CHANNEL_ID&part=statistics" -o channel.json
@@ -52,6 +52,7 @@ jobs:
                 else (($t.h // "0" | tonumber) * 3600) + (($t.m // "0" | tonumber) * 60) + ($t.s // "0" | tonumber)
                 end;
             ($d[0].items | map({key: .id, value: (.contentDetails.duration | secs)}) | from_entries) as $dur
+            | ($d[0].items | map({key: .id, value: (.statistics.viewCount | if . then tonumber else null end)}) | from_entries) as $views
             | {
                 subscriberCount: ($c[0].items[0].statistics.subscriberCount | if . then tonumber else null end),
                 updatedAt: (now | todate),
@@ -62,6 +63,7 @@ jobs:
                   | {
                       videoId: .contentDetails.videoId,
                       title: .snippet.title,
+                      viewCount: $views[.contentDetails.videoId],
                       thumbnail: (.snippet.thumbnails.high.url // .snippet.thumbnails.medium.url),
                       publishedAt: (.contentDetails.videoPublishedAt // .snippet.publishedAt)
                     } ][:$max]
