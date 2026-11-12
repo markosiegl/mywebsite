@@ -231,17 +231,26 @@
 
                 const publishDate = new Date(video.publishedAt);
                 const timeAgo = getTimeAgo(publishDate);
+                const views = formatViews(video.viewCount);
+                const meta = views ? `${views} · ${timeAgo}` : timeAgo;
 
                 videoCard.innerHTML = `
                     <img class="video-thumbnail" src="${video.thumbnail}" alt="${video.title}">
                     <div class="video-info">
                         <h3 class="video-title">${video.title}</h3>
-                        <p class="video-date">${timeAgo}</p>
+                        <p class="video-date">${meta}</p>
                     </div>
                 `;
 
                 videosGrid.appendChild(videoCard);
             });
+        }
+
+        function formatViews(count) {
+            if (count === null || count === undefined) return '';
+            const n = Number(count);
+            if (!Number.isFinite(n)) return '';
+            return n === 1 ? '1 Aufruf' : `${new Intl.NumberFormat('de-DE').format(n)} Aufrufe`;
         }
 
         function renderSubscriberCount(count) {
