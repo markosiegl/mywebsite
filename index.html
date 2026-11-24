@@ -189,7 +189,7 @@
             <img class="channel-avatar" src="https://yt3.googleusercontent.com/ytc/AIdro_m4mjGNCfXT8O3fwaMlxcs67jCQK-OybVex4RRXs4DpgfY=s160-c-k-c0x00ffffff-no-rj" alt="Marko Siegl">
             <div class="channel-details">
                 <h3>Marko Siegl</h3>
-                <p><span id="subscriber-count">Loading...</span> subscribers</p>
+                <p id="subscriber-line" style="display:none;"><span id="subscriber-count"></span> Abonnenten</p>
             </div>
         </div>
         <button class="subscribe-btn" onclick="window.open('https://youtube.com/@MarkoSiegl/?sub_confirmation=1', '_blank')">Abonnieren</button>
@@ -216,7 +216,6 @@
             } catch (error) {
                 console.log('Error:', error);
                 document.getElementById('videosGrid').innerHTML = '<div class="loading">Fehler beim Laden der Videos</div>';
-                document.getElementById('subscriber-count').textContent = '1.2K';
             }
         }
 
@@ -254,11 +253,11 @@
         }
 
         function renderSubscriberCount(count) {
+            const line = document.getElementById('subscriber-line');
             const el = document.getElementById('subscriber-count');
             if (count) {
                 el.textContent = new Intl.NumberFormat('de-DE').format(count);
-            } else {
-                el.textContent = '1.2K';
+                line.style.display = '';
             }
         }
         
